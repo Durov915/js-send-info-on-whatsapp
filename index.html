@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <title>D-Joke</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+
+      .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0px 18px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px;
+        max-width: 400px;
+        margin-top: 70px;
+      }
+
+      .joke {
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .getJokeBtn {
+        background-color: #ffbf00;
+        color: rgb(0, 0, 0);
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.6s ease;
+        width: 120px;
+      }
+
+      .getJokeBtn:hover {
+        background-color: #fff704;
+      }
+
+      .container img {
+        filter: drop-shadow(0px 0px 14px yellow);
+      }
+
+      p {
+        font-size: 15px;
+        font-family: 'Times New Roman', Times, serif;
+        color: #575757;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <a href="index.html">
+        <img
+          data-aos="zoom-in-up"
+          data-aos-duration="1500"
+          src="logo.png"
+          alt="D-Joke Logo"
+        />
+      </a>
+    </div>
+  
+    <div class="container">
+      <div class="card" data-aos="flip-up" data-aos-duration="1800">
+        <div class="joke" id="jokeText">
+          <!-- Joke will be displayed here -->
+        </div>
+      </div>
+    </div>
+  
+    <div class="container" data-aos="flip-right" data-aos-duration="2300">
+      <button class="getJokeBtn" onclick="fetchJoke()">Next Joke</button>
+    </div>
+    <div
+      data-aos="fade-up"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="2500"
+    >
+      <p>Made by dhruvt2005@gmail.com</p>
+    </div>
+    <!-- aos animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <!-- aos animation -->
+  
+    <!-- dark mode -->
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+      function addDarkmodeWidget() {
+        new Darkmode().showWidget();
+      }
+      window.addEventListener("load", addDarkmodeWidget);
+    </script>
+    <!-- dark mode -->
+  
+    <script>
+      function fetchJoke() {
+        fetch('https://icanhazdadjoke.com/', {
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('jokeText').innerHTML = `<strong>${data.joke}</strong>`;
+        })
+        .catch(error => {
+          console.error('Error fetching joke:', error);
+          document.getElementById('jokeText').innerHTML = `<strong>Failed to fetch joke.</strong>`;
+        });
+      }
+  
+      window.addEventListener('load', fetchJoke);
+    </script> 
+  </body>
+  </html>
